@@ -3,7 +3,6 @@
 #include<vld.h>
 #include"interface.h"
 
-
 #define MAX_PARAMS_NUM 4
 
 using namespace std;
@@ -21,6 +20,8 @@ int main(int argc, char* argv[])
 	}
 
 	fprintf(stdout, "Enter command or 'help' (h) \n");
+
+	HelpPrint(stdout);
 
 	while ((string_in = ReadLine(stdin)) != NULL)
 	{

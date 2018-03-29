@@ -1,0 +1,12 @@
+Help:
+
+1) Use 'h' ('H') or "help" to read help text.
+
+2) You should write command with rigth syntax.
+For example: 
+
+Allowed command: 
+
+- 'Q' : Quit the program
+
+4)- register of command is not inportant, 'q' == 'Q'
