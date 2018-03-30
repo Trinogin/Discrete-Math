@@ -1,4 +1,9 @@
 #include"interface.h"
+#include"impl.h"
+
+
+
+
 
 /* Dynamic string reading */
 /* Not for reading from file */
@@ -55,42 +60,80 @@ char* ReadLine(FILE* stream)
 
 void ParseString(char* string, class_num* my_num, err_t* error)
 {
-	UNUSED_PARAMETER(string);
+	int i = 0;
+	bool bracket_fl_st = false;
+	bool bracket_fl_end = false;
+	char* hptr = NULL;
+
 	UNUSED_PARAMETER(my_num);
-	UNUSED_PARAMETER(error);
+
+	while (string[i] != '\0')
+	{
+		string[i] = (char)tolower(string[i]);
+		i++;
+	}
+
+	if (!(bracket_fl_st * bracket_fl_end) && bracket_fl_st != false && bracket_fl_end != false)
+	{
+		*error = ERR_INCORRECT_STRING;
+		return;
+	}
+
+	hptr = strstr(string, "help");
+	if (hptr != NULL)
+	{
+		i = 1;
+		while (i < 4)
+		{
+			hptr[i] = ' ';
+			i++;
+		}
+	}
+
+	i = 0;
+	while (string[i] != '\0')
+	{
+		SpaceSkip(string);
+		i++;
+	}
 }
 
-void HelpPrint(FILE* stream)
+void LineParse(char* argv[], class_num* my_num, err_t* error)
 {
-	char* str;
-	int ch;
-	FILE* file;
-	int i = 0;
+	char* str1 = NULL;
+	char* str2 = NULL;
+	char* str3 = NULL;
 
-	file = fopen("HelpFile.txt", "r");
-	if (file == NULL)
+	UNUSED_PARAMETER(my_num);
+
+	str1 = (char*)malloc(sizeof(char) * (strlen(argv[1]) + 1));
+	str2 = (char*)malloc(sizeof(char) * (strlen(argv[2]) + 1));
+	str3 = (char*)malloc(sizeof(char) * (strlen(argv[3]) + 1));
+
+	if (str1 == NULL || str2 == NULL || str3 == NULL)
 	{
-		fprintf(stream, "Error with help \n");
+		if (str1 != NULL)
+			free(str1);
+		if (str2 != NULL)
+			free(str2);
+		if (str3 != NULL)
+			free(str3);
+		*error = ERR_NOT_ENOUGH_MEM;
 		return;
 	}
-	while ((ch = getc(file)) != EOF)
-		i++;
 
-	fseek(file, SEEK_SET, 0);
+	strcpy(str1, argv[1]);
+	strcpy(str2, argv[2]);
+	strcpy(str3, argv[3]);
 
-	str = (char*)malloc((i + 1) * sizeof(char));
-	if (str == NULL)
-	{
-		fprintf(stream, "Error with help \n");
-		fclose(file);
-		return;
-	}
+	//fprintf(stdout, "%s \n", str1);
+	//fprintf(stdout, "%s \n", str2);
+	//fprintf(stdout, "%s \n", str3);
 
-	fread(str, sizeof(char), i, file);
-	str[i] = '\0';
-
-	fprintf(stream, "%s \n", str);
-
-	free(str);
-	fclose(file);
+	if (str1 != NULL)
+		free(str1);
+	if (str2 != NULL)
+		free(str2);
+	if (str3 != NULL)
+		free(str3);
 }

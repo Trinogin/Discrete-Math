@@ -1,14 +1,15 @@
 #include"error.h"
 
-#define UNUSED_PARAMETER(name) (void)name
-
-err_t ErrCheck(err_t my_err)
-{
-	UNUSED_PARAMETER(my_err);
-	return ERR_OK;
-}
-
 void ErrPrint(err_t my_err)
 {
-	UNUSED_PARAMETER(my_err);
+	switch (my_err)
+	{
+	case ERR_INCORRECT_STRING:
+		fprintf(stderr, "Error: incorrect string entered \n");
+		break;
+
+	case ERR_NOT_ENOUGH_MEM:
+		fprintf(stderr, "Error: not enough memory \n");
+		break;
+	}
 }

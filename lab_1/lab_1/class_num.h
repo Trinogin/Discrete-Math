@@ -1,6 +1,8 @@
 #ifndef CLASS_NUM_H_INCLUDED
 #define CLASS_NUM_H_INCLUDED
 
+#define UNUSED_PARAMETER(name) (void)name
+
 #pragma once
 
 class class_num

@@ -3,15 +3,15 @@
 
 #pragma once
 
+#include<iostream>
+
 typedef enum
 {
 	ERR_OK,
 	ERR_INCORRECT_STRING,
-	ERR_INCORRECT_PARAM
+	ERR_NOT_ENOUGH_MEM,
 } err_t;
-
-err_t ErrCheck(err_t my_err);
 
 void ErrPrint(err_t my_err);
 
-#endif
+#endif //ERROR_H_INCLUDED

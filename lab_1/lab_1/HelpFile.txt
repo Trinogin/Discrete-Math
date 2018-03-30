@@ -1,12 +1,18 @@
 Help:
 
-1) Use 'h' ('H') or "help" to read help text.
+Use 'h' ('H') or "help" to read help text.
 
-2) You should write command with rigth syntax.
-For example: 
+You should write command with rigth syntax.
+For example: U(4,5)
 
 Allowed command: 
+- H : help
+- U(m,n) : number of placements
+- A(m,n) : number of placements without repetitions
+-   P(n) : number of permutations
+- C(m,n) : number of combinations
+- S(m,n) : Stirling numbers of 2nd kind
+-   B(n) : Bell numbers
+- Q : Quit the program
 
-- 'Q' : Quit the program
-
-4)- register of command is not inportant, 'q' == 'Q'
+register of command is not inportant, 'q' == 'Q'
