@@ -55,14 +55,18 @@ char* ReadLine(FILE* stream)
 void ParseString(char* string, class_num* my_num, err_t* error)
 {
 	int i = 0;
+	int j = 0;
 	char* hptr = NULL;
+	char digit[] = { '\0','\0','\0','\0','\0','\0','\0','\0','\0','\0' };
 	char name;
 	int par_1;
 	int par_2;
+	int par_num = 0;
+	bool err_nc = false; // err for num class constructor
 
 	while (string[i] != '\0')
 	{
-		string[i] = (char)tolower(string[i]);
+		string[i] = (char)tolower(UCHAR string[i]);
 		i++;
 	}
 
@@ -82,7 +86,7 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 		i = SpaceSkip(string, i);
 		i++;
 		i = SpaceSkip(string, i);
-		if (isalpha(string[i]))
+		if (isalpha(UCHAR string[i]))
 		{
 			*error = ERR_INCORRECT_STRING;
 			return;
@@ -97,16 +101,22 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 		*error = ERR_HELP_NEED;
 		return;
 	}
+	if (string[i] == 'q')
+	{
+		*error = ERR_QUIT;
+		return;
+	}
+		
+
 	if (string[i] == '\0')
 	{
 		*error = ERR_OK;
 		return;
 	}
-	if (isalpha(string[i]))
+	if (isalpha(UCHAR string[i]))
 	{
 		name = string[i];
-		//fprintf(stdout, "%c %i %i \n", my_num->name, my_num->par_1, my_num->par_2);
-		if (!isalpha(string[i + 1]))
+		if (!isalpha(UCHAR string[i + 1]))
 		{
 			i++;
 			i = SpaceSkip(string, i);
@@ -117,11 +127,70 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 			}
 			i++;
 			i = SpaceSkip(string, i);
-			//while (isdigit(string[i]))
-			//{
+			j = 0;
+			while (isdigit(UCHAR string[i]))
+			{
+				digit[j] = string[i];
+				i++;
+				j++;
+			}
+			if (digit[0] == '\0')
+			{
+				*error = ERR_INCORRECT_STRING;
+				return;
+			}
+			// 1st parameter end
+			par_1 = atoi(digit);
+			par_num++;
+			i = SpaceSkip(string, i);
+			if (string[i] == ',')
+				i++;
+			else
+			{
+				i = SpaceSkip(string, i);
+				if (string[i] != ')')
+				{
+					*error = ERR_INCORRECT_STRING;
+					return;
+				}
+				else
+				{
+					my_num->name = name;
+					my_num->par_1 = par_1;
+					class_num::class_num(par_num, my_num, &err_nc);
+					if (err_nc != false)
+					{
+						*error = ERR_INCORRECT_STRING;
+						return;
+					}
+				}
+			}
 
-			//}
+			j = 0;
+			for (int n = 0; n < 10; n++)
+				digit[n] = '\0';
+			i = SpaceSkip(string, i);
 
+			while (isdigit(UCHAR string[i]))
+			{
+				digit[j] = string[i];
+				i++;
+				j++;
+			}
+			if (digit[0] == '\0')
+			{
+				*error = ERR_INCORRECT_STRING;
+				return;
+			}
+			// 2nd parameter end
+			par_2 = atoi(digit);
+			par_num++;
+			i = SpaceSkip(string, i);
+			if (string[i] != ')')
+			{
+				*error = ERR_INCORRECT_STRING;
+				return;
+			}
 		}
 		else
 		{
@@ -134,7 +203,15 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 		*error = ERR_INCORRECT_STRING;
 		return;
 	}
-
+	my_num->name = name;
+	my_num->par_1 = par_1;
+	my_num->par_2 = par_2;
+	class_num::class_num(par_num, my_num, &err_nc);
+	if (err_nc != false)
+	{
+		*error = ERR_INCORRECT_STRING;
+		return;
+	}
 }
 
 void LineParse(char* argv[], class_num* my_num, err_t* error)

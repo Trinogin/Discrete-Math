@@ -3,6 +3,8 @@
 
 #define UNUSED_PARAMETER(name) (void)name
 
+#define UCHAR (unsigned char)
+
 #pragma once
 
 #pragma warning(disable:4996)

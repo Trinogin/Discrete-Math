@@ -11,6 +11,7 @@ typedef enum
 	ERR_INCORRECT_STRING,
 	ERR_NOT_ENOUGH_MEM,
 	ERR_HELP_NEED,
+	ERR_QUIT,
 } err_t;
 
 void ErrPrint(err_t my_err);

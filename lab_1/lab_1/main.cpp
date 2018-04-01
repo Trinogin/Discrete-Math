@@ -11,12 +11,11 @@ int main(int argc, char* argv[])
 {
 	char* string_in;
 	int result = 0;
+	bool err_nc = false; // error flag for num class
 	class_num my_num;
 	class_num* my_num_ptr = &my_num;
 	err_t my_err = ERR_OK;
 	
-
-
 	if (argc > MAX_PARAMS_NUM)
 	{
 		fprintf(stderr, "Error: too much parameters \n");
@@ -31,7 +30,7 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	fprintf(stdout, "%c %i %i \n", my_num.name, my_num.par_1, my_num.par_2);
+	//fprintf(stdout, "%c %i %i \n", my_num.name, my_num.par_1, my_num.par_2);
 
 	fprintf(stdout, "Enter command or 'help' (h) \n");
 
@@ -53,11 +52,15 @@ int main(int argc, char* argv[])
 				free(string_in);
 				string_in = NULL;
 			}
+
+			if (my_err == ERR_QUIT)
+				return 0;
+
 			my_err = ERR_OK;
 			continue;
 		}
 
-		//result = my_num.class_num_comp(my_num,);
+		result = my_num.class_num_comp(my_num, &err_nc);
 		fprintf(stdout, "%i \n", result);
 		//---------------------------------------------------------------------------------
 		if (string_in != NULL)
@@ -67,8 +70,6 @@ int main(int argc, char* argv[])
 		}
 		my_err = ERR_OK;
 	}
-
-	UNUSED_PARAMETER(argv);
 
 	return 0;
 }

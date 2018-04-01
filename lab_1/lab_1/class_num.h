@@ -13,9 +13,9 @@ public:
 	int par_2;
 
 	class_num();
-	class_num(int par_num, char ch, int par_1, int par_2);
+	class_num(int par_num, class class_num* obj, bool* error);
 	~class_num();
-	int class_num_comp(class_num obj, int* error);
+	int class_num_comp(class_num obj, bool* error);
 
 private:
 

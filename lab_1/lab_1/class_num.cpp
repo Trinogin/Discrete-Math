@@ -1,4 +1,5 @@
 #include "class_num.h"
+#include<limits>
 
 class_num::class_num()
 {
@@ -7,17 +8,22 @@ class_num::class_num()
 	this->par_2 = 0;
 }
 
-class_num::class_num(int par_num, char ch, int par_1, int par_2)
+class_num::class_num(int par_num, class class_num* obj, bool* error)
 {
-
+	if (obj->name != 'u' && obj->name != 'a' && obj->name != 'p'
+		&& obj->name != 'c' && obj->name != 's' && obj->name != 'b')
+	{
+		*error = true;
+		return;
+	}
 }
 
 class_num::~class_num()
 {
 }
 
-int class_num::class_num_comp(class_num obj, int* error)
+int class_num::class_num_comp(class_num obj, bool* error)
 {
 	UNUSED_PARAMETER(error);
-	return 1;
+	return INT_MAX;
 }
