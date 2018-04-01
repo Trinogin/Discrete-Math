@@ -5,7 +5,7 @@ void ErrPrint(err_t my_err)
 	switch (my_err)
 	{
 	case ERR_INCORRECT_STRING:
-		fprintf(stderr, "Error: incorrect string entered \n");
+		fprintf(stderr, "Error: incorrect command entered \n");
 		break;
 
 	case ERR_NOT_ENOUGH_MEM:

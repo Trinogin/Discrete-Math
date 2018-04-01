@@ -1,10 +1,6 @@
 #include"interface.h"
 #include"impl.h"
 
-
-
-
-
 /* Dynamic string reading */
 /* Not for reading from file */
 char* ReadLine(FILE* stream)
@@ -12,9 +8,7 @@ char* ReadLine(FILE* stream)
 	char* str1 = NULL;
 	char* str2 = NULL;
 	char ch;
-	int num;
-
-	num = 1;
+	int num = 1;
 
 	while (((ch = (unsigned char)getc(stream)) != '\n'))
 	{
@@ -61,22 +55,15 @@ char* ReadLine(FILE* stream)
 void ParseString(char* string, class_num* my_num, err_t* error)
 {
 	int i = 0;
-	bool bracket_fl_st = false;
-	bool bracket_fl_end = false;
 	char* hptr = NULL;
-
-	UNUSED_PARAMETER(my_num);
+	char name;
+	int par_1;
+	int par_2;
 
 	while (string[i] != '\0')
 	{
 		string[i] = (char)tolower(string[i]);
 		i++;
-	}
-
-	if (!(bracket_fl_st * bracket_fl_end) && bracket_fl_st != false && bracket_fl_end != false)
-	{
-		*error = ERR_INCORRECT_STRING;
-		return;
 	}
 
 	hptr = strstr(string, "help");
@@ -89,13 +76,65 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 			i++;
 		}
 	}
+	else
+	{
+		i = 0;
+		i = SpaceSkip(string, i);
+		i++;
+		i = SpaceSkip(string, i);
+		if (isalpha(string[i]))
+		{
+			*error = ERR_INCORRECT_STRING;
+			return;
+		}
+	}
 
 	i = 0;
-	while (string[i] != '\0')
+	i = SpaceSkip(string, i);
+
+	if (string[i] == 'h')
 	{
-		SpaceSkip(string);
-		i++;
+		*error = ERR_HELP_NEED;
+		return;
 	}
+	if (string[i] == '\0')
+	{
+		*error = ERR_OK;
+		return;
+	}
+	if (isalpha(string[i]))
+	{
+		name = string[i];
+		//fprintf(stdout, "%c %i %i \n", my_num->name, my_num->par_1, my_num->par_2);
+		if (!isalpha(string[i + 1]))
+		{
+			i++;
+			i = SpaceSkip(string, i);
+			if (string[i] != '(')
+			{
+				*error = ERR_INCORRECT_STRING;
+				return;
+			}
+			i++;
+			i = SpaceSkip(string, i);
+			//while (isdigit(string[i]))
+			//{
+
+			//}
+
+		}
+		else
+		{
+			*error = ERR_INCORRECT_STRING;
+			return;
+		}
+	}
+	else
+	{
+		*error = ERR_INCORRECT_STRING;
+		return;
+	}
+
 }
 
 void LineParse(char* argv[], class_num* my_num, err_t* error)
@@ -136,4 +175,39 @@ void LineParse(char* argv[], class_num* my_num, err_t* error)
 		free(str2);
 	if (str3 != NULL)
 		free(str3);
+}
+
+void HelpPrint(FILE* stream)
+{
+	char* str;
+	int ch;
+	FILE* file;
+	int i = 0;
+
+	file = fopen("HelpFile.txt", "r");
+	if (file == NULL)
+	{
+		fprintf(stream, "Error with help \n");
+		return;
+	}
+	while ((ch = getc(file)) != EOF)
+		i++;
+
+	fseek(file, SEEK_SET, 0);
+
+	str = (char*)malloc((i + 1) * sizeof(char));
+	if (str == NULL)
+	{
+		fprintf(stream, "Error with help \n");
+		fclose(file);
+		return;
+	}
+
+	fread(str, sizeof(char), i, file);
+	str[i] = '\0';
+
+	fprintf(stream, "%s \n", str);
+
+	free(str);
+	fclose(file);
 }

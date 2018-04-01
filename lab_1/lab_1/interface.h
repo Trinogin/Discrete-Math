@@ -10,12 +10,13 @@
 #include<iostream>
 #include<cstdlib>
 #include<cstring>
+#include<cctype>
 #include"error.h"
 #include"class_num.h"
 
-
-
 char* ReadLine(FILE* stream);
+
+void HelpPrint(FILE* stream);
 
 void ParseString(char* string, class_num* my_num, err_t* error);
 

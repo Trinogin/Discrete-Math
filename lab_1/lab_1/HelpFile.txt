@@ -1,6 +1,5 @@
-Help:
 
-Use 'h' ('H') or "help" to read help text.
+Help:
 
 You should write command with rigth syntax.
 For example: U(4,5)

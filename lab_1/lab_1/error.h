@@ -10,6 +10,7 @@ typedef enum
 	ERR_OK,
 	ERR_INCORRECT_STRING,
 	ERR_NOT_ENOUGH_MEM,
+	ERR_HELP_NEED,
 } err_t;
 
 void ErrPrint(err_t my_err);

@@ -6,9 +6,10 @@
 #pragma warning(disable:4996)
 
 #include<iostream>
+#include<cstring>
+#include<cctype>
 
-void HelpPrint(FILE* stream);
 
-void SpaceSkip(char* str);
+int SpaceSkip(char* str, int i);
 
 #endif // !IMPL_H_INCLUDED
