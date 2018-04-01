@@ -10,12 +10,26 @@ class_num::class_num()
 
 class_num::class_num(int par_num, class class_num* obj, bool* error)
 {
-	if (obj->name != 'u' && obj->name != 'a' && obj->name != 'p'
-		&& obj->name != 'c' && obj->name != 's' && obj->name != 'b')
+	if (obj->name == 'u' || obj->name == 'a' || obj->name == 'p'
+		|| obj->name == 'c' || obj->name == 's' || obj->name == 'b')
+	{
+		if (par_num == 1 && obj->name != 'p' && obj->name != 'b')
+		{
+			*error = true;
+			return;
+		}
+		if(par_num ==2 && (obj->name =='p' || obj->name =='b'))
+		{
+			*error = true;
+			return;
+		}
+	}
+	else
 	{
 		*error = true;
 		return;
 	}
+
 }
 
 class_num::~class_num()

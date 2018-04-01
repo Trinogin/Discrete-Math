@@ -163,6 +163,7 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 						*error = ERR_INCORRECT_STRING;
 						return;
 					}
+					return;
 				}
 			}
 
