@@ -61,7 +61,17 @@ int main(int argc, char* argv[])
 		}
 
 		result = my_num.class_num_comp(my_num, &err_nc);
-		fprintf(stdout, "%i \n", result);
+		if (err_nc == true)
+		{
+			my_err = ERR_BAD_COMPUTING;
+			ErrPrint(my_err);
+			my_err = ERR_OK;
+			err_nc = false;
+		}
+		else
+		{
+			fprintf(stdout, "%i \n", result);
+		}
 		//---------------------------------------------------------------------------------
 		if (string_in != NULL)
 		{

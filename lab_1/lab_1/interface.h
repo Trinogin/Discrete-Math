@@ -5,6 +5,8 @@
 
 #define UCHAR (unsigned char)
 
+#define MAX_SYM_NUM 10
+
 #pragma once
 
 #pragma warning(disable:4996)

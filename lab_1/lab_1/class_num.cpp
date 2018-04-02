@@ -38,6 +38,53 @@ class_num::~class_num()
 
 int class_num::class_num_comp(class_num obj, bool* error)
 {
-	UNUSED_PARAMETER(error);
-	return INT_MAX;
+	int result = 1;
+
+	switch (obj.name)
+	{
+	case 'u':
+		result = 1;
+		// binary pow algorithm
+		while (obj.par_2)
+		{
+			if (obj.par_2 & 1)
+			{
+				result *= obj.par_1;
+				//if (result != 0 && obj.par_1 * result / result == obj.par_1)
+				if (obj.par_1 != 0 && result * obj.par_1 / obj.par_1 != result)
+				{
+					*error = true;
+					return 0;
+				}
+				obj.par_2--;
+			}
+			else
+			{
+				obj.par_1 *= obj.par_1;
+				obj.par_2 >>= 1;
+			}
+		}
+		break;
+
+	case 'a':
+
+		break;
+
+	case 'p':
+
+		break;
+
+	case 'c':
+
+		break;
+
+	case 's':
+
+		break;
+
+	case 'b':
+
+		break;
+	}
+	return result;;
 }

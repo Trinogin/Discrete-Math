@@ -23,5 +23,3 @@ private:
 
 
 #endif // CLASS_NUM_H_INCLUDED
-
-

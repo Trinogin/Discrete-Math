@@ -5,10 +5,7 @@
 
 #pragma warning(disable:4996)
 
-#include<iostream>
-#include<cstring>
 #include<cctype>
-
 
 int SpaceSkip(char* str, int i);
 

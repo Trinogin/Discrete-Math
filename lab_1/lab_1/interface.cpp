@@ -106,7 +106,7 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 		*error = ERR_QUIT;
 		return;
 	}
-		
+
 
 	if (string[i] == '\0')
 	{
@@ -128,11 +128,16 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 			i++;
 			i = SpaceSkip(string, i);
 			j = 0;
-			while (isdigit(UCHAR string[i]))
+			while (isdigit(UCHAR string[i]) && j < MAX_SYM_NUM)
 			{
 				digit[j] = string[i];
 				i++;
 				j++;
+			}
+			if (j == 10)
+			{
+				*error = ERR_BAD_COMPUTING;
+				return;
 			}
 			if (digit[0] == '\0')
 			{
@@ -155,6 +160,11 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 				}
 				else
 				{
+					if (par_1 < 0)
+					{
+						*error = ERR_OUT_OF_DOMAIN;
+						return;
+					}
 					my_num->name = name;
 					my_num->par_1 = par_1;
 					class_num::class_num(par_num, my_num, &err_nc);
@@ -168,15 +178,20 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 			}
 
 			j = 0;
-			for (int n = 0; n < 10; n++)
+			for (int n = 0; n < MAX_SYM_NUM; n++)
 				digit[n] = '\0';
 			i = SpaceSkip(string, i);
 
-			while (isdigit(UCHAR string[i]))
+			while (isdigit(UCHAR string[i]) && j < MAX_SYM_NUM)
 			{
 				digit[j] = string[i];
 				i++;
 				j++;
+			}
+			if (j == 10)
+			{
+				*error = ERR_BAD_COMPUTING;
+				return;
 			}
 			if (digit[0] == '\0')
 			{
@@ -204,6 +219,11 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 		*error = ERR_INCORRECT_STRING;
 		return;
 	}
+	if (par_1 < 0 || par_2 < 0)
+	{
+		*error = ERR_OUT_OF_DOMAIN;
+		return;
+	}
 	my_num->name = name;
 	my_num->par_1 = par_1;
 	my_num->par_2 = par_2;
@@ -218,41 +238,25 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 void LineParse(char* argv[], class_num* my_num, err_t* error)
 {
 	char* str1 = NULL;
-	char* str2 = NULL;
-	char* str3 = NULL;
+	int sum_length;
 
 	UNUSED_PARAMETER(my_num);
 
-	str1 = (char*)malloc(sizeof(char) * (strlen(argv[1]) + 1));
-	str2 = (char*)malloc(sizeof(char) * (strlen(argv[2]) + 1));
-	str3 = (char*)malloc(sizeof(char) * (strlen(argv[3]) + 1));
 
-	if (str1 == NULL || str2 == NULL || str3 == NULL)
-	{
-		if (str1 != NULL)
-			free(str1);
-		if (str2 != NULL)
-			free(str2);
-		if (str3 != NULL)
-			free(str3);
-		*error = ERR_NOT_ENOUGH_MEM;
-		return;
-	}
+	sum_length = strlen(argv[1]) + strlen(argv[2]) + 2;
 
-	strcpy(str1, argv[1]);
-	strcpy(str2, argv[2]);
-	strcpy(str3, argv[3]);
+	if (argv[3] != NULL)
+		sum_length += (strlen(argv[3]) + 1);
 
-	//fprintf(stdout, "%s \n", str1);
-	//fprintf(stdout, "%s \n", str2);
-	//fprintf(stdout, "%s \n", str3);
+	str1 = (char*)calloc(sum_length, sizeof(char));
+	strcat(str1, argv[1]);
+	strcat(str1, argv[2]);
+	strcat(str1, argv[3]);
+
+	fprintf(stdout, "\n %s \n", str1);
 
 	if (str1 != NULL)
 		free(str1);
-	if (str2 != NULL)
-		free(str2);
-	if (str3 != NULL)
-		free(str3);
 }
 
 void HelpPrint(FILE* stream)
