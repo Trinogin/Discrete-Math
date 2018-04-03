@@ -36,7 +36,6 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
-	//fprintf(stdout, "%c %i %i \n", my_num.name, my_num.par_1, my_num.par_2);
 
 	fprintf(stdout, "Enter command or 'help' (h) \n");
 
@@ -46,7 +45,6 @@ int main(int argc, char* argv[])
 		//---------------------------------------------------------------------------------
 		// Here only parsing errors, errors with parameters is in class constructor
 		ParseString(string_in, my_num_ptr, &my_err);
-		//fprintf(stdout, "%s \n", string_in);
 		if (my_err != ERR_OK)
 		{
 			if (my_err == ERR_HELP_NEED)

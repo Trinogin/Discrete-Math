@@ -50,7 +50,6 @@ int class_num::class_num_comp(class_num obj, bool* error)
 			if (obj.par_2 & 1)
 			{
 				result *= obj.par_1;
-				//if (result != 0 && obj.par_1 * result / result == obj.par_1)
 				if (obj.par_1 != 0 && result * obj.par_1 / obj.par_1 != result)
 				{
 					*error = true;
@@ -86,5 +85,5 @@ int class_num::class_num_comp(class_num obj, bool* error)
 
 		break;
 	}
-	return result;;
+	return result;
 }
