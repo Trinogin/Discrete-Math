@@ -3,8 +3,6 @@
 #include<vld.h>
 #include"interface.h"
 
-#define MAX_PARAMS_NUM 4
-
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -24,9 +22,17 @@ int main(int argc, char* argv[])
 	if (argc > 1)
 	{
 		LineParse(argv, my_num_ptr, &my_err);
+
 		if (my_err != ERR_OK)
 			ErrPrint(my_err);
 
+		if (my_err == ERR_HELP_NEED)
+		{
+			HelpPrint(stdout);
+			return 0;
+		}
+		result = my_num.class_num_comp(my_num, &err_nc);
+		fprintf(stdout, "%i \n", result);
 		return 0;
 	}
 
@@ -69,9 +75,7 @@ int main(int argc, char* argv[])
 			err_nc = false;
 		}
 		else
-		{
 			fprintf(stdout, "%i \n", result);
-		}
 		//---------------------------------------------------------------------------------
 		if (string_in != NULL)
 		{

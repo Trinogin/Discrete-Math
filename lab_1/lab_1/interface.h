@@ -7,6 +7,8 @@
 
 #define MAX_SYM_NUM 10
 
+#define MAX_PARAMS_NUM 4
+
 #pragma once
 
 #pragma warning(disable:4996)
@@ -22,7 +24,7 @@ char* ReadLine(FILE* stream);
 
 void HelpPrint(FILE* stream);
 
-void ParseString(char* string, class_num* my_num, err_t* error);
+void ParseString(char* string, class_num* my_num_ptr, err_t* error);
 
 void LineParse(char* argv[], class_num* my_num, err_t* error);
 

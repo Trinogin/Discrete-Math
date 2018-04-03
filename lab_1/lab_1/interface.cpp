@@ -235,25 +235,47 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 	}
 }
 
-void LineParse(char* argv[], class_num* my_num, err_t* error)
+void LineParse(char* argv[], class_num* my_num_ptr, err_t* err)
 {
 	char* str1 = NULL;
-	int sum_length;
+	int sum_length = 0;
+	int i;
 
-	UNUSED_PARAMETER(my_num);
+	for (i = 1; i < MAX_PARAMS_NUM; i++)
+	{
+		if (argv[i] != NULL)
+			sum_length += strlen(argv[i]) + 1;
+		else
+			break;
+	}
 
-
-	sum_length = strlen(argv[1]) + strlen(argv[2]) + 2;
-
-	if (argv[3] != NULL)
-		sum_length += (strlen(argv[3]) + 1);
-
+	sum_length += 3; // 3 symbols: "(,)"
 	str1 = (char*)calloc(sum_length, sizeof(char));
-	strcat(str1, argv[1]);
-	strcat(str1, argv[2]);
-	strcat(str1, argv[3]);
 
-	fprintf(stdout, "\n %s \n", str1);
+	if (i == 4)
+	{
+		strcat(str1, argv[1]);
+		strcat(str1, "(");
+		strcat(str1, argv[2]);
+		strcat(str1, ",");
+		strcat(str1, argv[3]);
+		strcat(str1, ")");
+	}
+	if (i == 3)
+	{
+		strcat(str1, argv[1]);
+		strcat(str1, "(");
+		strcat(str1, argv[2]);
+		strcat(str1, ")");
+	}
+	if (i == 2)
+	{
+		strcat(str1, argv[1]);
+	}
+
+	fprintf(stdout, "%s == ", str1);
+
+	ParseString(str1, my_num_ptr, err);
 
 	if (str1 != NULL)
 		free(str1);
