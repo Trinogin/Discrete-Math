@@ -57,10 +57,10 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 	int i = 0;
 	int j = 0;
 	char* hptr = NULL;
-	char digit[] = { '\0','\0','\0','\0','\0','\0','\0','\0','\0','\0' };
+	char digit[] = { '\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0','\0' };
 	char name;
-	int par_1;
-	int par_2;
+	unsigned int par_1;
+	unsigned int par_2;
 	int par_num = 0;
 	bool err_nc = false; // err for num class constructor
 
@@ -134,7 +134,7 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 				i++;
 				j++;
 			}
-			if (j == 10)
+			if (j == MAX_SYM_NUM)
 			{
 				*error = ERR_BAD_COMPUTING;
 				return;
@@ -145,7 +145,7 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 				return;
 			}
 			// 1st parameter end
-			par_1 = atoi(digit);
+			par_1 = strtoul(digit, NULL, 10);
 			par_num++;
 			i = SpaceSkip(string, i);
 			if (string[i] == ',')
@@ -176,6 +176,7 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 					return;
 				}
 			}
+			
 
 			j = 0;
 			for (int n = 0; n < MAX_SYM_NUM; n++)
@@ -188,7 +189,7 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 				i++;
 				j++;
 			}
-			if (j == 10)
+			if (j == MAX_SYM_NUM)
 			{
 				*error = ERR_BAD_COMPUTING;
 				return;
@@ -199,10 +200,17 @@ void ParseString(char* string, class_num* my_num, err_t* error)
 				return;
 			}
 			// 2nd parameter end
-			par_2 = atoi(digit);
+			par_2 = strtoul(digit, NULL, 10);
 			par_num++;
 			i = SpaceSkip(string, i);
 			if (string[i] != ')')
+			{
+				*error = ERR_INCORRECT_STRING;
+				return;
+			}
+			i = SpaceSkip(string, i);
+			i++;
+			if (string[i] != '\0')
 			{
 				*error = ERR_INCORRECT_STRING;
 				return;

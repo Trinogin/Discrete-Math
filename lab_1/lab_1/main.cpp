@@ -8,7 +8,7 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	char* string_in;
-	int result = 0;
+	unsigned int result = 0;
 	bool err_nc = false; // error flag for num class
 	class_num my_num;
 	class_num* my_num_ptr = &my_num;
@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 			return 0;
 		}
 		result = my_num.class_num_comp(my_num, &err_nc);
-		fprintf(stdout, "%i \n", result);
+		fprintf(stdout, "%lu \n", result);
 		return 0;
 	}
 
@@ -73,7 +73,7 @@ int main(int argc, char* argv[])
 			err_nc = false;
 		}
 		else
-			fprintf(stdout, "%i \n", result);
+			fprintf(stdout, "%lu \n", result);
 		//---------------------------------------------------------------------------------
 		if (string_in != NULL)
 		{

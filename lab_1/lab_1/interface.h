@@ -1,17 +1,17 @@
 #ifndef INTERFACE_H_INCLUDED
 #define INTERFACE_H_INCLUDED
 
+#pragma once
+
+#pragma warning(disable:4996)
+
 #define UNUSED_PARAMETER(name) (void)name
 
 #define UCHAR (unsigned char)
 
-#define MAX_SYM_NUM 10
+#define MAX_SYM_NUM 11
 
 #define MAX_PARAMS_NUM 4
-
-#pragma once
-
-#pragma warning(disable:4996)
 
 #include<iostream>
 #include<cstdlib>

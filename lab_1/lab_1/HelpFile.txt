@@ -4,6 +4,11 @@ Help:
 You should write command with rigth syntax.
 For example: U(4,5)
 
+Remember about domain of functions, you can use only 
+positive (and non-negative numbers in some case)
+
+Domain (in general) is 0..4294967295
+
 Allowed command: 
 - H : help
 - U(m,n) : number of placements
