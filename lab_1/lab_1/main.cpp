@@ -24,24 +24,34 @@ int main(int argc, char* argv[])
 		LineParse(argv, my_num_ptr, &my_err);
 
 		if (my_err != ERR_OK)
+		{
 			ErrPrint(my_err);
-
+			return -1;
+		}
+			
 		if (my_err == ERR_HELP_NEED)
 		{
 			HelpPrint(stdout);
 			return 0;
 		}
 		result = my_num.class_num_comp(my_num, &err_nc);
-		fprintf(stdout, "%lu \n", result);
+		if (err_nc == true)
+		{
+			my_err = ERR_BAD_COMPUTING;
+			ErrPrint(my_err);
+			my_err = ERR_OK;
+			err_nc = false;
+		}
+		else
+			fprintf(stdout, "%lu \n", result);
 		return 0;
 	}
-
 
 	fprintf(stdout, "Enter command or 'help' (h) \n");
 
 	while ((string_in = ReadLine(stdin)) != NULL)
 	{
-		fprintf(stdout, "%s == ", string_in);
+		fprintf(stdout, " = ");
 		//---------------------------------------------------------------------------------
 		// Here only parsing errors, errors with parameters is in class constructor
 		ParseString(string_in, my_num_ptr, &my_err);

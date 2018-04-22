@@ -281,7 +281,7 @@ void LineParse(char* argv[], class_num* my_num_ptr, err_t* err)
 		strcat(str1, argv[1]);
 	}
 
-	fprintf(stdout, "%s == ", str1);
+	//fprintf(stdout, "%s == ", str1);
 
 	ParseString(str1, my_num_ptr, err);
 

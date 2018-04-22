@@ -1,4 +1,5 @@
 #ifndef CLASS_NUM_H_INCLUDED
+
 #define CLASS_NUM_H_INCLUDED
 
 #pragma once
